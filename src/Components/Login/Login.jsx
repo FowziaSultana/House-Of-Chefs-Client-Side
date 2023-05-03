@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const Login = () => {
   const { signIn } = useContext(AuthContext);
@@ -27,9 +29,10 @@ const Login = () => {
         <div className="text-center">
           <h1 className="text-5xl font-bold">Login now!</h1>
           <p className="py-6 w-2/3 mx-auto">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-            excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
-            a id nisi.
+            Don't Have an Account?{" "}
+            <Link className="link-info  hover:underline " to={"/registration"}>
+              Register Here
+            </Link>
           </p>
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
