@@ -8,37 +8,45 @@ import {
   updateProfile,
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
+import { toast } from "react-hot-toast";
 export const AuthContext = createContext(null);
 
 const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const signUp = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
+  const signUp = async (email, password, profile) => {
+    setLoading(true);
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then(async (res) => {
+        // await sendEmailVerification(auth.currentUser);
+      })
+      .catch((err) => setError(err));
+    await updateProfile(auth.currentUser, profile);
+    const username = auth.currentUser;
+    setUser({ ...username });
+    toast.success("User successfully created");
+    return username;
   };
 
   const signIn = (email, password) => {
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
   const logOut = () => {
+    setLoading(true);
     setUser(null);
     return signOut(auth);
-  };
-
-  const updateMyUser = (displayName, photoURL) => {
-    return updateProfile(auth.currentUser, {
-      displayName: displayName,
-      photoURL: photoURL,
-    });
   };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (loggedUser) => {
       console.log("logged in user inside auth state observer", loggedUser);
       setUser(loggedUser);
+      setLoading(false);
     });
 
     return () => {
@@ -46,7 +54,14 @@ const AuthProvider = ({ children }) => {
     };
   }, []);
 
-  const authInfo = { user, signIn, signUp, logOut, updateMyUser };
+  const authInfo = {
+    user,
+    setUser,
+    signIn,
+    signUp,
+    logOut,
+    loading,
+  };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );

@@ -5,6 +5,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import { AuthContext } from "../../Providers/AuthProvider";
+import { toast } from "react-hot-toast";
+import Loading from "../Loading/Loading";
 
 const navigation = [
   { name: "Home", href: "/", id: 1 },
@@ -13,10 +15,13 @@ const navigation = [
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut, loading } = useContext(AuthContext);
+  if (loading) {
+    return <Loading></Loading>;
+  }
   const handleLogout = () => {
     logOut()
-      .then()
+      .then(toast.success("successfully logged Out"))
       .catch((err) => console.log("err from logout", err));
   };
   return (
@@ -56,7 +61,7 @@ const Navbar = () => {
               {" "}
               <span className="text-lg text-white mx-2">
                 {" "}
-                {user.displayName}
+                {user?.displayName}
               </span>
               <button onClick={handleLogout} className="btn-primary">
                 Logout

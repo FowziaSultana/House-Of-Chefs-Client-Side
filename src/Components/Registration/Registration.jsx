@@ -1,12 +1,14 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import Loading from "../Loading/Loading";
 
 const Registration = () => {
   const [success, setSuccess] = useState(false);
-  const { signUp, updateMyUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const { signUp, loading } = useContext(AuthContext);
+
   const handleReg = (event) => {
     setSuccess(false);
     event.preventDefault();
@@ -14,20 +16,16 @@ const Registration = () => {
     const email = event.target.email.value;
     const password = event.target.password.value;
     const photoURL = event.target.file.value;
-    signUp(email, password)
-      .then((result) => {
-        updateMyUser(displayName, photoURL)
-          .then((result) => console.log("result from updte user", result))
-          .catch((err) =>
-            console.log("error from update profile", err.message)
-          );
-        console.log(result.user);
-        setSuccess(true);
-        toast.success("Successfully created an account!");
-        event.target.reset();
-        navigate("/");
+    const profile = {
+      displayName: displayName,
+      photoURL: photoURL,
+    };
+    signUp(email, password, profile)
+      .then(async (result) => {
+        // setSuccess(true);
       })
       .catch((error) => console.log("error from signup", error));
+    navigate("/", { replace: true });
   };
 
   return (
