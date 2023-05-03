@@ -44,9 +44,9 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <button type="button" className="btn-primary">
-            Login
-          </button>
+          <Link to={"/login"} className="btn-primary">
+            Login/Register
+          </Link>
         </div>
       </nav>
       <Dialog
