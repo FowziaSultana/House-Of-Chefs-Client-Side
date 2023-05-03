@@ -32,7 +32,9 @@ const SingleChef = ({ aChef }) => {
           <span className="font-semibold">{Likes}</span>
         </p>
         <div className="card-actions justify-end">
-          <Link className="btn btn-primary">Details</Link>
+          <Link className="btn btn-primary" to={`/chefsPage/${ChefId}`}>
+            Details
+          </Link>
         </div>
       </div>
     </div>

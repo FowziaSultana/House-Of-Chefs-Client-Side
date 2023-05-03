@@ -6,7 +6,7 @@ const Homebanner = () => {
     <div className="grid grid-cols-1 lg:grid-cols-2  bg-black text-white place-items-center px-5 ">
       <div className="">
         <h1 className="text-amber-500 font-bold text-3xl md:text-5xl lg:leading-tight">
-          HOUSE OF CHEFS <br></br>THE CHRONICLES BEGIN...
+          HOUSE OF THE CHEFS <br></br>THE CHRONICLES BEGIN...
         </h1>
         <p className="text-sm md:text-lg my-5">
           "Discover the Master Chefs behind our culinary creations! <br></br>{" "}

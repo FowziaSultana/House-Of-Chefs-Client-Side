@@ -5,7 +5,8 @@ import { toast } from "react-hot-toast";
 import { FaGoogle, FaGithubSquare } from "react-icons/fa";
 
 const Login = () => {
-  const { signIn, user, googleSignUp, githubSignUp } = useContext(AuthContext);
+  const { signIn, user, googleSignUp, githubSignUp, setLoading } =
+    useContext(AuthContext);
   // const location = useLocation();
   // const from = location?.state?.from?.pathname || "/";
   const navigate = useNavigate();
@@ -38,6 +39,10 @@ const Login = () => {
       })
       .catch((err) => {
         console.log("err from google login", err);
+        const message = err.message;
+        toast.error(message);
+        setLoading(false);
+        navigate("/login");
       });
   };
   const handleGithubLogin = () => {
@@ -48,7 +53,10 @@ const Login = () => {
         navigate("/");
       })
       .catch((err) => {
-        console.log("err from github login", err);
+        const message = err.message;
+        toast.error(message);
+        setLoading(false);
+        navigate("/login");
       });
   };
 
@@ -56,15 +64,15 @@ const Login = () => {
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col">
         <div className="text-center">
-          <h1 className="text-5xl font-bold">Login now!</h1>
-          <p className="py-6 w-2/3 mx-auto">
+          <h1 className="text-4xl font-bold">Login now!</h1>
+          <p className="py-4 w-2/3 mx-auto">
             Don't Have an Account?{" "}
             <Link className="link-info  hover:underline " to={"/registration"}>
               Register Here
             </Link>
           </p>
         </div>
-        <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+        <div className="card flex-shrink-0 w-full  shadow-2xl bg-base-100">
           <form onSubmit={handleLogin} className="card-body">
             <div className="form-control">
               <label className="label">
@@ -95,22 +103,21 @@ const Login = () => {
                 Login
               </button>
             </div>
-            <div className="divider">OR</div>
-            <div className="form-control ">
-              <button onClick={handleGoogleLogin} className="btn btn-primary">
-                <FaGoogle className="mr-2" />
-                Login with Google
-              </button>
-            </div>
-            <div className="divider">OR</div>
-            <div className="form-control ">
-              <button onClick={handleGithubLogin} className="btn btn-primary">
-                {" "}
-                <FaGithubSquare className="mr-2" />
-                Login with Github
-              </button>
-            </div>
           </form>
+        </div>
+        <div className="divider">OR</div>
+
+        <div className="flex flex-col md:flex-row gap-2">
+          <button onClick={handleGoogleLogin} className="btn btn-primary">
+            <FaGoogle className="mr-2" />
+            Login with Google
+          </button>
+
+          <button onClick={handleGithubLogin} className="btn btn-primary">
+            {" "}
+            <FaGithubSquare className="mr-2" />
+            Login with Github
+          </button>
         </div>
       </div>
     </div>

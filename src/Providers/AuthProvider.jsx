@@ -76,6 +76,7 @@ const AuthProvider = ({ children }) => {
     loading,
     googleSignUp,
     githubSignUp,
+    setLoading,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

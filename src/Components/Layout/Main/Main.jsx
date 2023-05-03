@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import Navbar from "../../Navbar/Navbar";
+import Navbar from "../../Shared/Navbar/Navbar";
 import { Outlet } from "react-router-dom";
-import Footer from "../../Footer/Footer";
+import Footer from "../../Shared/Footer/Footer";
 import { AuthContext } from "../../../Providers/AuthProvider";
 
 const Main = () => {

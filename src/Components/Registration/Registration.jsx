@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import Loading from "../Loading/Loading";
 
 const Registration = () => {
   const navigate = useNavigate();
@@ -40,17 +39,17 @@ const Registration = () => {
 
   return (
     <div className="hero min-h-screen bg-base-200">
-      <div className="hero-content flex-col">
+      <div className="hero-content flex-col ">
         <div className="text-center">
-          <h1 className="text-5xl font-bold">Register now!</h1>
-          <p className="py-6 w-2/3 mx-auto">
+          <h1 className="text-4xl font-bold">Register now!</h1>
+          <p className="py-4 w-2/3 mx-auto">
             Already have an account ?{" "}
             <Link to={"/login"} className="link-info  hover:underline ">
               Login Here!
             </Link>
           </p>
         </div>
-        <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+        <div className="card flex-shrink-0 w-full  shadow-2xl bg-base-100">
           <form onSubmit={handleReg} className="card-body">
             <div className="form-control">
               <label className="label">

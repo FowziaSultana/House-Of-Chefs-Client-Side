@@ -4,10 +4,9 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
-import { AuthContext } from "../../Providers/AuthProvider";
 import { toast } from "react-hot-toast";
-
-import Loader from "../Shared/Loader/Loader";
+import Loader from "../Loader/Loader";
+import { AuthContext } from "../../../Providers/AuthProvider";
 
 const navigation = [
   { name: "Home", href: "/", id: 1 },
@@ -17,7 +16,7 @@ const navigation = [
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, logOut, loading } = useContext(AuthContext);
-  console.log(user?.photoURL);
+
   if (loading) {
     return <Loader></Loader>;
   }
@@ -35,7 +34,7 @@ const Navbar = () => {
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 p-1.5">
             <span className=" text-amber-400 font-extrabold text-3xl">
-              Chefs Chronicles
+              HOUSE OF THE CHEFS
             </span>
           </a>
         </div>
@@ -89,7 +88,7 @@ const Navbar = () => {
           <div className="flex items-center justify-between">
             <a href="#" className="-m-1.5 p-1.5">
               <span className=" text-amber-600 font-extrabold text-2xl">
-                Chefs Chronicles
+                HOUSE OF THE CHEFS
               </span>
             </a>
             <button
