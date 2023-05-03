@@ -6,6 +6,7 @@ import Main from "../Components/Layout/Main/Main";
 import Login from "../Components/Login/Login";
 import Registration from "../Components/Registration/Registration";
 import Error from "../Components/Shared/Loader/Error/Error";
+import PrivateRoute from "./PrivateRoute";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -19,7 +20,11 @@ const router = createBrowserRouter([
 
       {
         path: "/blog",
-        element: <Blog></Blog>,
+        element: (
+          <PrivateRoute>
+            <Blog></Blog>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/login",
