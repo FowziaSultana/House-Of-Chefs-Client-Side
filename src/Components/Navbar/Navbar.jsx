@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 import "./Navbar.css";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { toast } from "react-hot-toast";
-import Loading from "../Loading/Loading";
+
+import Loader from "../Shared/Loader/Loader";
 
 const navigation = [
   { name: "Home", href: "/", id: 1 },
@@ -16,8 +17,9 @@ const navigation = [
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, logOut, loading } = useContext(AuthContext);
+  console.log(user?.photoURL);
   if (loading) {
-    return <Loading></Loading>;
+    return <Loader></Loader>;
   }
   const handleLogout = () => {
     logOut()
@@ -57,12 +59,14 @@ const Navbar = () => {
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           {user ? (
-            <span>
+            <span className="flex justify-center items-center gap-2">
               {" "}
-              <span className="text-lg text-white mx-2">
-                {" "}
-                {user?.displayName}
-              </span>
+              <div
+                className="tooltip tooltip-left"
+                data-tip={user?.displayName}
+              >
+                <img className="profileImage" src={user?.photoURL}></img>
+              </div>
               <button onClick={handleLogout} className="btn-primary">
                 Logout
               </button>
@@ -114,9 +118,24 @@ const Navbar = () => {
                 </Link>
               </div>
               <div className="py-6">
-                <button type="button" className="btn-primary">
-                  Login
-                </button>
+                {user ? (
+                  <span className="flex justify-center items-center gap-2">
+                    {" "}
+                    <div
+                      className="tooltip tooltip-left"
+                      data-tip={user?.displayName}
+                    >
+                      <img className="profileImage" src={user?.photoURL}></img>
+                    </div>
+                    <button onClick={handleLogout} className="btn-primary">
+                      Logout
+                    </button>
+                  </span>
+                ) : (
+                  <Link to={"/login"} className="btn-primary">
+                    Login/Register
+                  </Link>
+                )}
               </div>
             </div>
           </div>

@@ -5,12 +5,11 @@ import { toast } from "react-hot-toast";
 import Loading from "../Loading/Loading";
 
 const Registration = () => {
-  const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
   const { signUp, loading } = useContext(AuthContext);
+  const [accept, setAccept] = useState(false);
 
   const handleReg = (event) => {
-    setSuccess(false);
     event.preventDefault();
     const displayName = event.target.name.value;
     const email = event.target.email.value;
@@ -20,12 +19,23 @@ const Registration = () => {
       displayName: displayName,
       photoURL: photoURL,
     };
-    signUp(email, password, profile)
-      .then(async (result) => {
-        // setSuccess(true);
-      })
-      .catch((error) => console.log("error from signup", error));
-    navigate("/", { replace: true });
+
+    if (password.length < 6) {
+      toast.error("Your password must be at least 6 characters");
+      return;
+    } else {
+      signUp(email, password, profile)
+        .then(async (result) => {
+          // setSuccess(true);
+        })
+        .catch((error) => console.log("error from signup", error));
+      navigate("/", { replace: true });
+    }
+  };
+
+  const handleChecked = (e) => {
+    setAccept(e.target.checked);
+    console.log(accept);
   };
 
   return (
@@ -78,26 +88,44 @@ const Registration = () => {
                 required
               />
             </div>
-            <div className="form-control">
+            <div className="form-control mb-2">
               <label className="label">
                 <span className="label-text">Photo</span>
               </label>
               <input
+                required
                 name="file"
-                type="file"
+                type="photoURL"
                 className="file-input file-input-bordered file-input-warning w-full max-w-xs"
               />
             </div>
+            <div className="form-control flex flex-row gap-2 items-center">
+              <span>
+                <input
+                  onClick={handleChecked}
+                  type="checkbox"
+                  className="checkbox checkbox-warning"
+                />
+              </span>
+
+              <span className="label-text">
+                Accept{" "}
+                <span className="link-info  underline">
+                  Terms and Condition
+                </span>
+              </span>
+            </div>
             <div className="form-control mt-6">
-              <button type="submit" className="btn btn-primary">
+              <button
+                type="submit"
+                disabled={!accept}
+                className="btn btn-primary"
+              >
                 Register
               </button>
             </div>
           </form>
         </div>
-        {success && (
-          <p className="text-xl text-purple-600">Successfully registered!!</p>
-        )}
       </div>
     </div>
   );

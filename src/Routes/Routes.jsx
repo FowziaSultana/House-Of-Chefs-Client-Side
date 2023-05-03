@@ -5,10 +5,12 @@ import Blog from "../Components/Blog/Blog";
 import Main from "../Components/Layout/Main/Main";
 import Login from "../Components/Login/Login";
 import Registration from "../Components/Registration/Registration";
+import Error from "../Components/Shared/Loader/Error/Error";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
+    errorElement: <Error></Error>,
     children: [
       {
         path: "/",
