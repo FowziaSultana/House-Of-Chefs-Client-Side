@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const navigation = [
   { name: "Home", href: "/", id: 1 },
@@ -12,6 +13,12 @@ const navigation = [
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user, logOut } = useContext(AuthContext);
+  const handleLogout = () => {
+    logOut()
+      .then()
+      .catch((err) => console.log("err from logout", err));
+  };
   return (
     <header className="sticky top-0  z-20  bg-black ">
       <nav
@@ -44,9 +51,22 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link to={"/login"} className="btn-primary">
-            Login/Register
-          </Link>
+          {user ? (
+            <span>
+              {" "}
+              <span className="text-lg text-white mx-2">
+                {" "}
+                {user.displayName}
+              </span>
+              <button onClick={handleLogout} className="btn-primary">
+                Logout
+              </button>
+            </span>
+          ) : (
+            <Link to={"/login"} className="btn-primary">
+              Login/Register
+            </Link>
+          )}
         </div>
       </nav>
       <Dialog

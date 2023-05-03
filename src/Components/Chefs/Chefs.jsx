@@ -15,7 +15,7 @@ const Chefs = () => {
       {chefs ? (
         <div className="grid grid-cols-1 lg:grid-cols-3  place-items-center gap-y-12">
           {chefs.map((aChef) => (
-            <SingleChef aChef={aChef}></SingleChef>
+            <SingleChef key={aChef.ChefId} aChef={aChef}></SingleChef>
           ))}
         </div>
       ) : (
