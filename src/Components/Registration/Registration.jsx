@@ -4,21 +4,29 @@ import { Link } from "react-router-dom";
 
 const Registration = () => {
   const [success, setSuccess] = useState(false);
-  const { signUp } = useContext(AuthContext);
+  const { signUp, updateMyUser } = useContext(AuthContext);
 
   const handleReg = (event) => {
     setSuccess(false);
     event.preventDefault();
+    const displayName = event.target.name.value;
     const email = event.target.email.value;
     const password = event.target.password.value;
+    const photoURL = event.target.file.value;
     signUp(email, password)
       .then((result) => {
+        updateMyUser(displayName, photoURL)
+          .then((result) => console.log("result from updte user", result))
+          .catch((err) =>
+            console.log("error from update profile", err.message)
+          );
         console.log(result.user);
         setSuccess(true);
         event.target.reset();
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log("error from signup", error));
   };
+
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col">
@@ -67,6 +75,16 @@ const Registration = () => {
                 placeholder="password"
                 className="input input-bordered"
                 required
+              />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Photo</span>
+              </label>
+              <input
+                name="file"
+                type="file"
+                className="file-input file-input-bordered file-input-warning w-full max-w-xs"
               />
             </div>
             <div className="form-control mt-6">
