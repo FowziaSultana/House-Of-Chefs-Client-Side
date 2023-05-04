@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { FaThumbsUp } from "react-icons/fa";
 import Recipes from "../Recipes/Recipes";
 
 const ChefsPage = () => {
+  const [recipes, setRecipes] = useState([]);
   const aChef = useLoaderData();
   const {
     ChefId,
@@ -14,6 +15,13 @@ const ChefsPage = () => {
     YearsOfExperience,
     Bio,
   } = aChef;
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/recipes/${ChefId}`)
+      .then((res) => res.json())
+      .then((data) => setRecipes(data));
+  }, [ChefId]);
+
   return (
     <div>
       <header className="bg-black">
@@ -51,7 +59,18 @@ const ChefsPage = () => {
           </div>
         </div>
       </header>
-      <Recipes chefId={ChefId}></Recipes>
+      <div className="container mx-auto">
+        <h1 className="text-center text-2xl font-bold">Chefs Choice</h1>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          {recipes ? (
+            recipes.map((rec) => (
+              <Recipes key={rec.recipe_id} recipes={rec}></Recipes>
+            ))
+          ) : (
+            <h1>No recipes here</h1>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

@@ -7,9 +7,11 @@ import { FaGoogle, FaGithubSquare } from "react-icons/fa";
 const Login = () => {
   const { signIn, user, googleSignUp, githubSignUp, setLoading } =
     useContext(AuthContext);
-  // const location = useLocation();
-  // const from = location?.state?.from?.pathname || "/";
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
   const navigate = useNavigate();
+  console.log("location", location);
+  console.log("from", from);
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -22,7 +24,7 @@ const Login = () => {
         console.log(loggedUser);
         toast.success("Successfully logged in!!");
         event.target.reset();
-        navigate("/");
+        navigate(from, { replace: true });
       })
       .catch((err) => {
         const mess = err.message;
@@ -35,7 +37,7 @@ const Login = () => {
       .then((res) => {
         const user = res.user;
         toast.success("successfully logged in with gmail");
-        navigate("/");
+        navigate(from, { replace: true });
       })
       .catch((err) => {
         console.log("err from google login", err);
@@ -50,7 +52,7 @@ const Login = () => {
       .then((res) => {
         const user = res.user;
         toast.success("successfully logged in with github");
-        navigate("/");
+        navigate(from, { replace: true });
       })
       .catch((err) => {
         const message = err.message;
@@ -67,7 +69,11 @@ const Login = () => {
           <h1 className="text-4xl font-bold">Login now!</h1>
           <p className="py-4 w-2/3 mx-auto">
             Don't Have an Account?{" "}
-            <Link className="link-info  hover:underline " to={"/registration"}>
+            <Link
+              state={{ from: location?.state?.from }}
+              className="link-info  hover:underline "
+              to={"/registration"}
+            >
               Register Here
             </Link>
           </p>

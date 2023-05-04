@@ -1,12 +1,16 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
 const Registration = () => {
   const navigate = useNavigate();
   const { signUp, loading } = useContext(AuthContext);
   const [accept, setAccept] = useState(false);
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
+  console.log("location in reg", location);
+  console.log("from in reg", from);
 
   const handleReg = (event) => {
     event.preventDefault();
@@ -28,7 +32,7 @@ const Registration = () => {
           // setSuccess(true);
         })
         .catch((error) => console.log("error from signup", error));
-      navigate("/", { replace: true });
+      navigate(from, { replace: true });
     }
   };
 
