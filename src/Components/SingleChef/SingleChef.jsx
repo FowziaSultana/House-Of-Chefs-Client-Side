@@ -2,6 +2,8 @@ import React from "react";
 import "./SingleChef.css";
 import { Link } from "react-router-dom";
 
+//here single chefs details are showed in a card
+
 const SingleChef = ({ aChef }) => {
   const {
     ChefId,
@@ -33,7 +35,7 @@ const SingleChef = ({ aChef }) => {
         </p>
         <div className="card-actions justify-end">
           <Link className="btn btn-primary" to={`/chefsPage/${ChefId}`}>
-            Details
+            View Recipes
           </Link>
         </div>
       </div>

@@ -14,6 +14,7 @@ const Login = () => {
   console.log("from", from);
 
   const handleLogin = (event) => {
+    //email sign in func
     event.preventDefault();
     const email = event.target.email.value;
     const password = event.target.password.value;
@@ -33,6 +34,7 @@ const Login = () => {
   };
 
   const handleGoogleLogin = () => {
+    //google  sign in func
     googleSignUp()
       .then((res) => {
         const user = res.user;
@@ -48,6 +50,7 @@ const Login = () => {
       });
   };
   const handleGithubLogin = () => {
+    //git hub sign in func
     githubSignUp()
       .then((res) => {
         const user = res.user;

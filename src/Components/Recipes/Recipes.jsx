@@ -4,6 +4,7 @@ import ReactStars from "react-rating-stars-component";
 import "./Recipes.css";
 import { toast } from "react-hot-toast";
 
+// top recipes of chef
 const Recipes = ({ recipes }) => {
   const {
     chef_id,

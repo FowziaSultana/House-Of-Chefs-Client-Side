@@ -1,3 +1,5 @@
+//all providers and context here
+
 import React, { createContext, useEffect, useState } from "react";
 import {
   GithubAuthProvider,

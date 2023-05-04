@@ -10,8 +10,9 @@ const Homebanner = () => {
         </h1>
         <p className="text-sm md:text-lg my-5">
           "Discover the Master Chefs behind our culinary creations! <br></br>{" "}
-          Meet our talented team and learn about their backgrounds,<br></br> and
-          specialties. Join us on a gastronomic journey!"
+          Meet our talented team from THAILAND and learn about their
+          backgrounds,<br></br> and specialties. Join us on a gastronomic
+          journey!"
         </p>
         <button className="btn-primary">Explore</button>
       </div>

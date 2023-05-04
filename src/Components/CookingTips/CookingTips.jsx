@@ -15,6 +15,7 @@ const CookingTips = () => {
     ));
   };
   return (
+    //tips for cooking ,extra required div
     <div>
       <div
         className="hero min-h-screen"

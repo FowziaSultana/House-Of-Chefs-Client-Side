@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { FaThumbsUp } from "react-icons/fa";
 import Recipes from "../Recipes/Recipes";
 import LazyLoad from "react-lazy-load";
+import { AuthContext } from "../../Providers/AuthProvider";
+import Loader from "../Shared/Loader/Loader";
 
 const ChefsPage = () => {
   const [recipes, setRecipes] = useState([]);
@@ -16,15 +18,33 @@ const ChefsPage = () => {
     YearsOfExperience,
     Bio,
   } = aChef;
-
+  const [load, setLoad] = useState(false);
   useEffect(() => {
+    setLoad(true);
     fetch(
       `https://b7a10-chef-recipe-hunter-server-side-fowzia-sulta-fowziasultana.vercel.app/recipes/${ChefId}`
     )
       .then((res) => res.json())
-      .then((data) => setRecipes(data));
+      .then((data) => {
+        setRecipes(data);
+        setLoad(false);
+      });
   }, [ChefId]);
 
+  if (load) {
+    return (
+      <div
+        className=" inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+        role="status"
+      >
+        <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+          Loading...
+        </span>
+      </div>
+    );
+  }
+
+  //private route for single chefs details view
   return (
     <div>
       <header className="bg-black">
