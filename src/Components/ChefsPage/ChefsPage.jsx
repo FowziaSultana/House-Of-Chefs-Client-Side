@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { FaThumbsUp } from "react-icons/fa";
 import Recipes from "../Recipes/Recipes";
+import LazyLoad from "react-lazy-load";
 
 const ChefsPage = () => {
   const [recipes, setRecipes] = useState([]);
@@ -29,9 +30,14 @@ const ChefsPage = () => {
       <header className="bg-black">
         <div className="container mx-auto w-full  grid grid-cols-1 md:grid-cols-8 gap-3 place-items-center mb-5 p-7">
           <div className="md:col-span-3 ">
-            <img className="w-full max-h-96 rounded-xl" src={ChefPicture}></img>
+            <LazyLoad threshold={0.95}>
+              <img
+                className="w-full max-h-96 rounded-xl"
+                src={ChefPicture}
+              ></img>
+            </LazyLoad>
           </div>
-          <div className="md:col-span-5 bg-amber-200 p-9 rounded-2xl">
+          <div className="md:col-span-5 bg-amber-400 p-9 rounded-2xl">
             <h1 className="text-2xl font-semibold">{ChefName}</h1>
             <p className="py-3">{Bio}</p>
             <div className="flex flex-col md:flex-row items-center justify-between">

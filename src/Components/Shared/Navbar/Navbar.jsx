@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./Navbar.css";
 import { toast } from "react-hot-toast";
 import Loader from "../Loader/Loader";
@@ -17,6 +17,10 @@ const navigation = [
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, logOut, loading } = useContext(AuthContext);
+  let notActiveClassName =
+    "-mx-3 block rounded-lg px-3 py-2  hover:bg-amber-500  text-black";
+  let activeClassName =
+    "-mx-3 block rounded-lg px-3 py-2  bg-amber-500  text-black";
 
   if (loading) {
     return <Loader></Loader>;
@@ -34,7 +38,7 @@ const Navbar = () => {
       >
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 p-1.5">
-            <span className=" text-amber-400 font-extrabold text-3xl">
+            <span className=" text-amber-500 font-extrabold text-3xl">
               HOUSE OF THE CHEFS
             </span>
           </a>
@@ -88,7 +92,7 @@ const Navbar = () => {
         <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
             <a href="#" className="-m-1.5 p-1.5">
-              <span className=" text-amber-600 font-extrabold text-2xl">
+              <span className=" text-amber-500 font-extrabold text-2xl">
                 HOUSE OF THE CHEFS
               </span>
             </a>
@@ -104,18 +108,22 @@ const Navbar = () => {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                <Link
-                  className="-mx-3 block rounded-lg px-3 py-2  hover:bg-amber-100  text-black"
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? activeClassName : notActiveClassName
+                  }
                   to={"/"}
                 >
                   Home
-                </Link>
-                <Link
-                  className="-mx-3 block rounded-lg px-3 py-2  hover:bg-amber-100 text-black"
+                </NavLink>
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? activeClassName : notActiveClassName
+                  }
                   to={"/blog"}
                 >
                   Blog
-                </Link>
+                </NavLink>
               </div>
               <div className="py-6">
                 {user ? (
