@@ -59,9 +59,11 @@ const ChefsPage = () => {
           </div>
         </div>
       </header>
-      <div className="container mx-auto">
-        <h1 className="text-center text-2xl font-bold">Chefs Choice</h1>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div className="container mx-auto my-7">
+        <h1 className="text-center text-4xl font-bold text-amber-400 my-5">
+          Chefs Choice
+        </h1>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {recipes ? (
             recipes.map((rec) => (
               <Recipes key={rec.recipe_id} recipes={rec}></Recipes>
