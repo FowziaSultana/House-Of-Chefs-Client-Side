@@ -7,6 +7,7 @@ import "./Navbar.css";
 import { toast } from "react-hot-toast";
 import Loader from "../Loader/Loader";
 import { AuthContext } from "../../../Providers/AuthProvider";
+import ActiveLink from "../ActiveLink/ActiveLink";
 
 const navigation = [
   { name: "Home", href: "/", id: 1 },
@@ -49,12 +50,12 @@ const Navbar = () => {
           </button>
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
-          <Link className="navLink" to={"/"}>
+          <ActiveLink className="navLink" to={"/"}>
             Home
-          </Link>
-          <Link className="navLink" to={"/blog"}>
+          </ActiveLink>
+          <ActiveLink className="navLink" to={"/blog"}>
             Blog
-          </Link>
+          </ActiveLink>
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           {user ? (

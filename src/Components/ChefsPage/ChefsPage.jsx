@@ -17,7 +17,9 @@ const ChefsPage = () => {
   } = aChef;
 
   useEffect(() => {
-    fetch(`http://localhost:5000/recipes/${ChefId}`)
+    fetch(
+      `https://b7a10-chef-recipe-hunter-server-side-fowzia-sulta-fowziasultana.vercel.app/recipes/${ChefId}`
+    )
       .then((res) => res.json())
       .then((data) => setRecipes(data));
   }, [ChefId]);
