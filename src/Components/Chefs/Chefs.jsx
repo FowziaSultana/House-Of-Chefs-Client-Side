@@ -6,17 +6,14 @@ import Loader from "../Shared/Loader/Loader";
 
 const Chefs = () => {
   const [chefs, setChefs] = useState([]);
-  const [load, setLoad] = useState(false);
+  // const [load, setLoad] = useState(false);
   useEffect(() => {
-    setLoad(true);
+    //setLoad(true);
     fetch(
       "https://b7a10-chef-recipe-hunter-server-side-fowzia-sulta-fowziasultana.vercel.app/chefs"
     )
       .then((res) => res.json())
-      .then((data) => {
-        setChefs(data);
-        setLoad(false);
-      });
+      .then((data) => setChefs(data));
   }, []);
   // if (load) {
   //   return (

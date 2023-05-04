@@ -18,17 +18,13 @@ const ChefsPage = () => {
     YearsOfExperience,
     Bio,
   } = aChef;
-  const [load, setLoad] = useState(false);
+  // const [load, setLoad] = useState(false);
   useEffect(() => {
-    setLoad(true);
     fetch(
       `https://b7a10-chef-recipe-hunter-server-side-fowzia-sulta-fowziasultana.vercel.app/recipes/${ChefId}`
     )
       .then((res) => res.json())
-      .then((data) => {
-        setRecipes(data);
-        setLoad(false);
-      });
+      .then((data) => setRecipes(data));
   }, [ChefId]);
 
   // if (load) {
